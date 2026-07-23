@@ -1,5 +1,7 @@
 // app/crm/customers/[id]/page.js
 import Link from "next/link";
+import { notFound } from "next/navigation";
+
 import styles from "./page.module.css";
 
 export default async function CustomerDetailPage({ params }) {
@@ -10,6 +12,18 @@ export default async function CustomerDetailPage({ params }) {
     fetch(`${process.env.API_BASE_URL}/customers/${id}`),
     fetch(`${process.env.API_BASE_URL}/interactions?customerId=${id}`),
   ]);
+
+  if (customerRes.status === 404) {
+    notFound();
+  }
+
+  if (!customerRes.ok) {
+    throw new Error("Failed to fetch customer data");
+  }
+
+  if (!interactionsRes.ok) {
+    throw new Error("Failed to fetch customer interactions data");
+  }
 
   const customer = await customerRes.json();
   const interactions = await interactionsRes.json();
