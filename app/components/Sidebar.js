@@ -3,7 +3,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+import { logout } from "@/app/login/actions";
+
 import { LayoutDashboard, Users, LogOut } from "lucide-react";
+
 import styles from "./Sidebar.module.css";
 
 function navItemClass(pathname, href, exact = false) {
@@ -46,7 +50,7 @@ export default function Sidebar() {
       </nav>
 
       <div className={styles.foot}>
-        <button className={styles.signOutBtn} title="Sign out">
+        <button className={styles.signOutBtn} title="Sign out" onClick={logout}>
           <LogOut size={16} />
         </button>
       </div>

@@ -24,3 +24,9 @@ export async function login(previousState, formData) {
 
   redirect("/crm");
 }
+
+export async function logout() {
+  const cookieStore = await cookies();
+  cookieStore.delete("access_token");
+  redirect("/login");
+}

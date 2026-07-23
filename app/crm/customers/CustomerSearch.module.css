@@ -154,3 +154,22 @@
   border-radius: var(--radius-pill);
   padding: 2px 8px;
 }
+
+.sortButton {
+  padding: 0.5rem 1rem;
+  background-color: var(--surface-card, #ffffff);
+  border: 1px solid var(--border-subtle, #cbd5e1);
+  border-radius: var(--radius-md, 6px);
+  color: var(--text-main, #1e293b);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
+}
+
+.sortButton:hover {
+  background-color: var(--neutral-100, #f1f5f9);
+  border-color: var(--border-strong, #94a3b8);
+}
