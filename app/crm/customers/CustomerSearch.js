@@ -13,6 +13,7 @@ function initials(firstName, lastName) {
 export default function CustomerSearch({ customers }) {
   const [query, setQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [sortOrder, setSortOrder] = useState("asc"); // "asc" (A-Z) or "desc" (Z-A)
 
   const filtered = customers.filter((c) => {
     const fullName = `${c.firstName} ${c.lastName}`.toLowerCase();
@@ -20,6 +21,19 @@ export default function CustomerSearch({ customers }) {
     const matchesStatus = statusFilter === "all" || c.status === statusFilter;
     return matchesName && matchesStatus;
   });
+
+  const sortedAndFiltered = [...filtered].sort((a, b) => {
+    const lastNameA = a.lastName.toLowerCase();
+    const lastNameB = b.lastName.toLowerCase();
+
+    if (lastNameA < lastNameB) return sortOrder === "asc" ? -1 : 1;
+    if (lastNameA > lastNameB) return sortOrder === "asc" ? 1 : -1;
+    return 0;
+  });
+
+  const toggleSort = () => {
+    setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+  };
 
   return (
     <div>
@@ -40,13 +54,17 @@ export default function CustomerSearch({ customers }) {
           <option value="active">Active</option>
           <option value="inactive">Inactive</option>
         </select>
+
+        <button onClick={toggleSort} className={styles.sortButton}>
+          Sort: {sortOrder === "asc" ? "A-Z" : "Z-A"}
+        </button>
       </div>
 
-      {filtered.length === 0 ? (
+      {sortedAndFiltered.length === 0 ? (
         <p className={styles.empty}>No customers match your search.</p>
       ) : (
         <div className={styles.grid}>
-          {filtered.map((c) => (
+          {sortedAndFiltered.map((c) => (
             <Link
               key={c.id}
               href={`/crm/customers/${c.id}`}
