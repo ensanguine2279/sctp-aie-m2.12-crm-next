@@ -12,21 +12,36 @@ function initials(firstName, lastName) {
 
 export default function CustomerSearch({ customers }) {
   const [query, setQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
 
   const filtered = customers.filter((c) => {
     const fullName = `${c.firstName} ${c.lastName}`.toLowerCase();
-    return fullName.includes(query.toLowerCase());
+    const matchesName = fullName.includes(query.toLowerCase());
+    const matchesStatus = statusFilter === "all" || c.status === statusFilter;
+    return matchesName && matchesStatus;
   });
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Search by name..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className={styles.input}
-      />
+      <div className={styles.filterContainer}>
+        <input
+          type="text"
+          placeholder="Search by name..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className={styles.input}
+        />
+        <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+          className={styles.select}
+        >
+          <option value="all">All Statuses</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </div>
+
       {filtered.length === 0 ? (
         <p className={styles.empty}>No customers match your search.</p>
       ) : (
