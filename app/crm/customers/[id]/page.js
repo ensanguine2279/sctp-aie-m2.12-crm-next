@@ -2,10 +2,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { deleteCustomer } from "./actions";
+import DeleteCustomerForm from "./DeleteCustomerForm";
+
 import styles from "./page.module.css";
 
 export default async function CustomerDetailPage({ params }) {
   const { id } = await params;
+  const deleteWithId = deleteCustomer.bind(null, id);
 
   // Promise.all fetches both the customer and their interactions in parallel
   const [customerRes, interactionsRes] = await Promise.all([
@@ -40,9 +44,15 @@ export default async function CustomerDetailPage({ params }) {
           </h1>
         </div>
 
-        <Link href={`/crm/customers/${id}/edit`} className={styles.editButton}>
-          Edit
-        </Link>
+        <div className={styles.actionButtons}>
+          <Link
+            href={`/crm/customers/${id}/edit`}
+            className={styles.editButton}
+          >
+            Edit
+          </Link>
+          <DeleteCustomerForm action={deleteWithId} />
+        </div>
       </div>
       {customer.company && <p className={styles.company}>{customer.company}</p>}
 

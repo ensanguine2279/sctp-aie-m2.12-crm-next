@@ -116,6 +116,14 @@
       "phone": "",
       "status": "inactive",
       "id": "A3DORUZ_V2c"
+    },
+    {
+      "firstName": "fgdfg",
+      "lastName": "dfgd",
+      "email": "aa@trg.fg",
+      "phone": "",
+      "status": "active",
+      "id": "LqGpvcbL-cA"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
