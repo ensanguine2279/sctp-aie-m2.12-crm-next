@@ -12,6 +12,8 @@ export async function login(previousState, formData) {
   const email = formData.get("email");
   const password = formData.get("password");
 
+  console.log("Login action called with:", { email, password });
+
   if (email !== VALID_EMAIL || password !== VALID_PASSWORD) {
     return { error: "Incorrect email or password." };
   }

@@ -107,3 +107,30 @@
 .interactionMeta {
   color: var(--text-muted);
 }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.editButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2) var(--space-5);
+  background: var(--action-primary);
+  color: var(--text-on-primary);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+  transition: background var(--duration-fast) var(--ease-standard);
+  white-space: nowrap;
+}
+
+.editButton:hover {
+  background: var(--action-primary-hover);
+}
