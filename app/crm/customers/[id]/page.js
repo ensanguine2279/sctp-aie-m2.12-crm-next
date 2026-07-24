@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { getSession } from "@/app/login/utils";
+
 import { deleteCustomer } from "./actions";
 import DeleteCustomerForm from "./DeleteCustomerForm";
 
@@ -10,6 +12,8 @@ import styles from "./page.module.css";
 export default async function CustomerDetailPage({ params }) {
   const { id } = await params;
   const deleteWithId = deleteCustomer.bind(null, id);
+  const session = await getSession();
+  const isAdmin = session?.role === "admin";
 
   // Promise.all fetches both the customer and their interactions in parallel
   const [customerRes, interactionsRes] = await Promise.all([
@@ -51,7 +55,9 @@ export default async function CustomerDetailPage({ params }) {
           >
             Edit
           </Link>
-          <DeleteCustomerForm action={deleteWithId} />
+
+          {/* Only render delete button for admins */}
+          {isAdmin && <DeleteCustomerForm action={deleteWithId} />}
         </div>
       </div>
       {customer.company && <p className={styles.company}>{customer.company}</p>}
