@@ -33,9 +33,17 @@ export default async function CustomerDetailPage({ params }) {
       <Link href="/crm/customers" className={styles.backLink}>
         ← Back to customers
       </Link>
-      <h1 className={styles.name}>
-        {customer.firstName} {customer.lastName}
-      </h1>
+      <div className={styles.header}>
+        <div>
+          <h1 className={styles.name}>
+            {customer.firstName} {customer.lastName}
+          </h1>
+        </div>
+
+        <Link href={`/crm/customers/${id}/edit`} className={styles.editButton}>
+          Edit
+        </Link>
+      </div>
       {customer.company && <p className={styles.company}>{customer.company}</p>}
 
       <p className={styles.contactRow}>{customer.email}</p>

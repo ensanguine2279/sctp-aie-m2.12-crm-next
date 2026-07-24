@@ -109,11 +109,12 @@
       "id": "7aIRJP5PuSs"
     },
     {
-      "firstName": "sdasd",
-      "lastName": "asdasd",
-      "email": "asdasdasd@dsf.gh",
+      "firstName": "Thomas",
+      "lastName": "Train",
+      "email": "tom@trains.com",
+      "company": "MRT",
       "phone": "",
-      "status": "active",
+      "status": "inactive",
       "id": "A3DORUZ_V2c"
     }
   ],
