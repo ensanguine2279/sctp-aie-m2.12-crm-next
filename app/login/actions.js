@@ -4,10 +4,8 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-const VALID_EMAIL = "daniel@simplesystems.io";
-const VALID_PASSWORD = "password123";
-
 export async function getUserByEmail(email) {
+  console.log("Fetching user by email:", `${process.env.API_BASE_URL}`);
   const response = await fetch(
     `${process.env.API_BASE_URL}/users?email=${encodeURIComponent(email)}`,
   );
