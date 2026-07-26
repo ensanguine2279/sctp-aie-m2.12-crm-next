@@ -48,6 +48,21 @@
   box-shadow: var(--ring);
 }
 
+.inputError {
+  border-color: var(--danger-600);
+}
+
+.inputError:focus {
+  border-color: var(--danger-600);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+}
+
+.fieldError {
+  margin: 0;
+  color: var(--danger-600);
+  font-size: var(--text-sm);
+}
+
 .submit {
   padding: var(--space-2) var(--space-5);
   background: var(--action-primary);

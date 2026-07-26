@@ -3,25 +3,30 @@
 
 import { redirect } from "next/navigation";
 
-export async function addCustomer(previousState, formData) {
-  const firstName = formData.get("firstName");
-  const lastName = formData.get("lastName");
-  const email = formData.get("email");
+import { customerSchema } from "@/lib/validationSchemas";
 
-  if (!firstName || !lastName || !email) {
-    return { error: "First name, last name, and email are required." };
+export async function addCustomer(previousState, formData) {
+  const payload = {
+    firstName: formData.get("firstName")?.toString() ?? "",
+    lastName: formData.get("lastName")?.toString() ?? "",
+    email: formData.get("email")?.toString() ?? "",
+    phone: formData.get("phone")?.toString() ?? "",
+    status: formData.get("status")?.toString() ?? "active",
+  };
+
+  const parsed = customerSchema.safeParse(payload);
+
+  if (!parsed.success) {
+    return {
+      error: "Please fix the highlighted fields.",
+      fieldErrors: parsed.error.flatten().fieldErrors,
+    };
   }
 
   const res = await fetch(`${process.env.API_BASE_URL}/customers`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      firstName,
-      lastName,
-      email,
-      phone: formData.get("phone") || "",
-      status: formData.get("status"),
-    }),
+    body: JSON.stringify(parsed.data),
   });
 
   if (!res.ok) {
